@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { ExternalLink, Github } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -216,9 +217,11 @@ const PortfolioSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="outline" className="border-neutral-300 hover:bg-neutral-50">
-            View All Projects
-          </Button>
+          <Link to="/projects">
+            <Button variant="outline" className="border-neutral-300 hover:bg-neutral-50">
+              View All Projects
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
