@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
-import { Card } from '@/components/ui/card';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from "react";
+import { Card } from "@/components/ui/card";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,23 +9,29 @@ const skills = [
   {
     category: "Frontend",
     technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Svelte"],
-    icon: "🎨"
+    icon: "🎨",
   },
   {
     category: "Backend",
     technologies: ["Node.js", "NestJS", "PostgreSQL", "REST APIs", "SQL"],
-    icon: "⚙️"
+    icon: "⚙️",
   },
   {
     category: "Infrastructure",
     technologies: ["Docker", "AWS", "Git", "Clean Architecture", "CI/CD"],
-    icon: "🚀"
+    icon: "🚀",
   },
   {
     category: "Practices",
-    technologies: ["Clean Code", "Testing", "Scalable Apps", "API Design", "Performance"],
-    icon: "💎"
-  }
+    technologies: [
+      "Clean Code",
+      "Testing",
+      "Scalable Apps",
+      "API Design",
+      "Performance",
+    ],
+    icon: "💎",
+  },
 ];
 
 const SkillsSection = () => {
@@ -48,7 +54,7 @@ const SkillsSection = () => {
               trigger: sectionRef.current,
               start: "top 70%",
               end: "bottom 30%",
-              toggleActions: "play none none reverse",
+              toggleActions: "play none none none",
             },
           }
         );
@@ -66,7 +72,8 @@ const SkillsSection = () => {
             Technical Expertise
           </h2>
           <p className="text-body-large text-neutral-600 max-w-2xl mx-auto">
-            Modern technologies and best practices for building exceptional digital experiences
+            Modern technologies and best practices for building exceptional
+            digital experiences
           </p>
         </div>
 

@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
-import { Card } from '@/components/ui/card';
-import { Search, Code, TestTube, Rocket } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from "react";
+import { Card } from "@/components/ui/card";
+import { Search, Code, TestTube, Rocket } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,27 +10,51 @@ const processSteps = [
   {
     icon: Search,
     title: "Discovery & Planning",
-    description: "Understanding requirements, analyzing business goals, and defining technical architecture for optimal solutions.",
-    details: ["Requirements analysis", "Technical planning", "Architecture design", "Timeline estimation"]
+    description:
+      "Understanding requirements, analyzing business goals, and defining technical architecture for optimal solutions.",
+    details: [
+      "Requirements analysis",
+      "Technical planning",
+      "Architecture design",
+      "Timeline estimation",
+    ],
   },
   {
     icon: Code,
     title: "Development",
-    description: "Clean, efficient code development using modern technologies and best practices for maintainable solutions.",
-    details: ["Clean code principles", "Modern frameworks", "Responsive design", "Performance optimization"]
+    description:
+      "Clean, efficient code development using modern technologies and best practices for maintainable solutions.",
+    details: [
+      "Clean code principles",
+      "Modern frameworks",
+      "Responsive design",
+      "Performance optimization",
+    ],
   },
   {
     icon: TestTube,
     title: "Testing & Quality",
-    description: "Comprehensive testing ensuring performance, reliability, and exceptional user experience across all devices.",
-    details: ["Unit testing", "Integration testing", "Performance testing", "Cross-browser compatibility"]
+    description:
+      "Comprehensive testing ensuring performance, reliability, and exceptional user experience across all devices.",
+    details: [
+      "Unit testing",
+      "Integration testing",
+      "Performance testing",
+      "Cross-browser compatibility",
+    ],
   },
   {
     icon: Rocket,
     title: "Deployment & Maintenance",
-    description: "Scalable deployment solutions with ongoing support and maintenance for long-term success.",
-    details: ["CI/CD pipelines", "Cloud deployment", "Monitoring setup", "Ongoing support"]
-  }
+    description:
+      "Scalable deployment solutions with ongoing support and maintenance for long-term success.",
+    details: [
+      "CI/CD pipelines",
+      "Cloud deployment",
+      "Monitoring setup",
+      "Ongoing support",
+    ],
+  },
 ];
 
 const ProcessSection = () => {
@@ -52,7 +76,7 @@ const ProcessSection = () => {
             trigger: sectionRef.current,
             start: "top 70%",
             end: "bottom 30%",
-            toggleActions: "play none none reverse",
+            toggleActions: "play none none none",
           },
         }
       );
@@ -83,20 +107,25 @@ const ProcessSection = () => {
   }, []);
 
   return (
-    <section id="process" ref={sectionRef} className="section-padding bg-neutral-50">
+    <section
+      id="process"
+      ref={sectionRef}
+      className="section-padding bg-neutral-50"
+    >
       <div className="container-width">
         <div className="text-center mb-16">
           <h2 className="text-section gradient-text mb-4">
             My Development Process
           </h2>
           <p className="text-body-large text-neutral-600 max-w-2xl mx-auto">
-            A systematic approach to delivering exceptional results from concept to deployment
+            A systematic approach to delivering exceptional results from concept
+            to deployment
           </p>
         </div>
 
         <div className="relative">
           {/* Connecting line - hidden on mobile */}
-          <div 
+          <div
             ref={lineRef}
             className="hidden lg:block absolute top-20 left-0 right-0 h-0.5 bg-neutral-300 transform origin-left"
           />
@@ -126,7 +155,7 @@ const ProcessSection = () => {
                   <h3 className="text-xl font-semibold text-neutral-900 mb-4">
                     {step.title}
                   </h3>
-                  
+
                   <p className="text-body text-neutral-600 mb-6">
                     {step.description}
                   </p>
@@ -136,7 +165,9 @@ const ProcessSection = () => {
                     {step.details.map((detail, i) => (
                       <div key={i} className="flex items-center justify-center">
                         <div className="w-1.5 h-1.5 bg-neutral-400 rounded-full mr-2"></div>
-                        <span className="text-sm text-neutral-500">{detail}</span>
+                        <span className="text-sm text-neutral-500">
+                          {detail}
+                        </span>
                       </div>
                     ))}
                   </div>

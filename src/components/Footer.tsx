@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Github, Heart } from 'lucide-react';
+import { Mail, Linkedin, Github, Heart } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-neutral-900 text-white">
       <div className="container-width">
-        <div className="py-16">
+        <div className="py-16 px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {/* Brand */}
             <div>
@@ -14,23 +14,23 @@ const Footer = () => {
                 Paulo Alves
               </div>
               <p className="text-neutral-400 mb-6">
-                Full Stack Developer specializing in React, Next.js, and Node.js. 
-                Building scalable solutions for clients worldwide.
+                Full Stack Developer specializing in React, Next.js, and
+                Node.js. Building scalable solutions for clients worldwide.
               </p>
               <div className="flex space-x-4">
-                <a 
+                <a
                   href="mailto:paulo.alves@example.com"
                   className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-neutral-700 transition-colors"
                 >
                   <Mail className="w-5 h-5" />
                 </a>
-                <a 
+                <a
                   href="#"
                   className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-neutral-700 transition-colors"
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a 
+                <a
                   href="#"
                   className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-neutral-700 transition-colors"
                 >
@@ -43,16 +43,28 @@ const Footer = () => {
             <div>
               <h3 className="font-semibold mb-4">Quick Links</h3>
               <div className="space-y-3">
-                <a href="#about" className="block text-neutral-400 hover:text-white transition-colors">
+                <a
+                  href="#about"
+                  className="block text-neutral-400 hover:text-white transition-colors"
+                >
                   About
                 </a>
-                <a href="#experience" className="block text-neutral-400 hover:text-white transition-colors">
+                <a
+                  href="#experience"
+                  className="block text-neutral-400 hover:text-white transition-colors"
+                >
                   Experience
                 </a>
-                <a href="#portfolio" className="block text-neutral-400 hover:text-white transition-colors">
+                <a
+                  href="#portfolio"
+                  className="block text-neutral-400 hover:text-white transition-colors"
+                >
                   Portfolio
                 </a>
-                <a href="#contact" className="block text-neutral-400 hover:text-white transition-colors">
+                <a
+                  href="#contact"
+                  className="block text-neutral-400 hover:text-white transition-colors"
+                >
                   Contact
                 </a>
               </div>
@@ -79,7 +91,8 @@ const Footer = () => {
               © {currentYear} Paulo Alves. All rights reserved.
             </div>
             <div className="flex items-center text-neutral-400 text-sm">
-              Made with <Heart className="w-4 h-4 text-red-500 mx-1" /> in Brazil
+              Made with <Heart className="w-4 h-4 text-red-500 mx-1" /> in
+              Brazil
             </div>
           </div>
         </div>

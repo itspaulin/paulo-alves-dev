@@ -1,14 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Mail, Linkedin, Github, ExternalLink } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef, useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Mail, Linkedin, Github, ExternalLink } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,11 +25,10 @@ const ContactSection = () => {
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    projectDetails: '',
-    budget: ''
+    name: "",
+    email: "",
+    subject: "",
+    projectDetails: "",
   });
 
   useEffect(() => {
@@ -41,7 +46,7 @@ const ContactSection = () => {
             trigger: sectionRef.current,
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse",
+            toggleActions: "play none none none",
           },
         }
       );
@@ -52,7 +57,7 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!formData.name || !formData.email || !formData.projectDetails) {
       toast({
@@ -64,25 +69,25 @@ const ContactSection = () => {
     }
 
     // Here you would typically send the form data to your backend
-    console.log('Form submitted:', formData);
-    
+    console.log("Form submitted:", formData);
+
     toast({
       title: "Message Sent!",
-      description: "Thank you for your message. I'll get back to you within 24 hours.",
+      description:
+        "Thank you for your message. I'll get back to you within 24 hours.",
     });
 
     // Reset form
     setFormData({
-      name: '',
-      email: '',
-      company: '',
-      projectDetails: '',
-      budget: ''
+      name: "",
+      email: "",
+      subject: "",
+      projectDetails: "",
     });
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -93,7 +98,8 @@ const ContactSection = () => {
             Ready to Build Something Amazing?
           </h2>
           <p className="text-body-large text-neutral-600 max-w-2xl mx-auto">
-            Let's discuss your next project and bring your ideas to life with modern, scalable solutions
+            Let's discuss your next project and bring your ideas to life with
+            modern, scalable solutions
           </p>
         </div>
 
@@ -107,7 +113,7 @@ const ContactSection = () => {
                   <Input
                     id="name"
                     value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
                     placeholder="Your full name"
                     required
                   />
@@ -118,7 +124,7 @@ const ContactSection = () => {
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
                     placeholder="your@email.com"
                     required
                   />
@@ -126,29 +132,13 @@ const ContactSection = () => {
               </div>
 
               <div>
-                <Label htmlFor="company">Company</Label>
+                <Label htmlFor="subject">Subject</Label>
                 <Input
-                  id="company"
-                  value={formData.company}
-                  onChange={(e) => handleInputChange('company', e.target.value)}
-                  placeholder="Your company name (optional)"
+                  id="subject"
+                  value={formData.subject}
+                  onChange={(e) => handleInputChange("subject", e.target.value)}
+                  placeholder="Subject"
                 />
-              </div>
-
-              <div>
-                <Label htmlFor="budget">Budget Range</Label>
-                <Select onValueChange={(value) => handleInputChange('budget', value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select your budget range" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
-                    <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
-                    <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
-                    <SelectItem value="50k+">$50,000+</SelectItem>
-                    <SelectItem value="discuss">Let's Discuss</SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
 
               <div>
@@ -156,15 +146,17 @@ const ContactSection = () => {
                 <Textarea
                   id="projectDetails"
                   value={formData.projectDetails}
-                  onChange={(e) => handleInputChange('projectDetails', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("projectDetails", e.target.value)
+                  }
                   placeholder="Tell me about your project, goals, and requirements..."
                   rows={5}
                   required
                 />
               </div>
 
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full bg-neutral-900 hover:bg-neutral-800 text-white py-3 text-lg hover-shadow"
               >
                 Send Message
@@ -179,9 +171,10 @@ const ContactSection = () => {
                 Let's Connect
               </h3>
               <p className="text-body text-neutral-600 mb-8">
-                I'm always excited to discuss new projects and opportunities. 
-                Whether you need a full-stack application, API development, or technical consultation, 
-                I'm here to help bring your vision to life.
+                I'm always excited to discuss new projects and opportunities.
+                Whether you need a full-stack application, API development, or
+                technical consultation, I'm here to help bring your vision to
+                life.
               </p>
             </div>
 
@@ -192,38 +185,53 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <div className="font-medium text-neutral-900">Email</div>
-                  <div className="text-neutral-600">paulo.alves@example.com</div>
+                  <div className="text-neutral-600">
+                    pauloalvescode@gmail.com
+                  </div>
                 </div>
               </Card>
 
-              <Card className="p-6 flex items-center space-x-4 hover-shadow group cursor-pointer">
-                <div className="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center group-hover:bg-neutral-900 transition-colors duration-300">
-                  <Linkedin className="w-6 h-6 text-neutral-600 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <div className="flex-1">
-                  <div className="font-medium text-neutral-900">LinkedIn</div>
-                  <div className="text-neutral-600">Connect professionally</div>
-                </div>
-                <ExternalLink className="w-4 h-4 text-neutral-400" />
-              </Card>
+              <a
+                href="https://linkedin.com/in/paulobarbosacode"
+                target="_blank"
+              >
+                <Card className="p-6 flex items-center space-x-4 hover-shadow group cursor-pointer">
+                  <div className="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center group-hover:bg-neutral-900 transition-colors duration-300">
+                    <Linkedin className="w-6 h-6 text-neutral-600 group-hover:text-white transition-colors duration-300" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-medium text-neutral-900">LinkedIn</div>
+                    <div className="text-neutral-600">
+                      Connect professionally
+                    </div>
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-neutral-400" />
+                </Card>
+              </a>
 
-              <Card className="p-6 flex items-center space-x-4 hover-shadow group cursor-pointer">
-                <div className="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center group-hover:bg-neutral-900 transition-colors duration-300">
-                  <Github className="w-6 h-6 text-neutral-600 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <div className="flex-1">
-                  <div className="font-medium text-neutral-900">GitHub</div>
-                  <div className="text-neutral-600">View my open source work</div>
-                </div>
-                <ExternalLink className="w-4 h-4 text-neutral-400" />
-              </Card>
+              <a href="https://github.com/itspaulin" target="_blank">
+                <Card className="p-6 flex items-center space-x-4 hover-shadow group cursor-pointer">
+                  <div className="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center group-hover:bg-neutral-900 transition-colors duration-300">
+                    <Github className="w-6 h-6 text-neutral-600 group-hover:text-white transition-colors duration-300" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-medium text-neutral-900">GitHub</div>
+                    <div className="text-neutral-600">
+                      View my open source work
+                    </div>
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-neutral-400" />
+                </Card>
+              </a>
             </div>
 
             <div className="bg-neutral-50 rounded-lg p-6">
-              <h4 className="font-semibold text-neutral-900 mb-3">Response Time</h4>
+              <h4 className="font-semibold text-neutral-900 mb-3">
+                Response Time
+              </h4>
               <p className="text-body text-neutral-600">
-                I typically respond to all inquiries within 24 hours. For urgent projects, 
-                don't hesitate to mention it in your message.
+                I typically respond to all inquiries within 24 hours. For urgent
+                projects, don't hesitate to mention it in your message.
               </p>
             </div>
           </div>
