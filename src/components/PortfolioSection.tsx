@@ -14,9 +14,9 @@ gsap.registerPlugin(ScrollTrigger);
 const PortfolioSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
-  const [selectedType, setSelectedType] = useState<"frontend" | "backend">(
-    "frontend"
-  );
+  const [selectedType, setSelectedType] = useState<
+    "frontend" | "backend" | "websites"
+  >("frontend");
 
   const filteredProjects = getProjectsByType(selectedType);
 
@@ -29,12 +29,12 @@ const PortfolioSection = () => {
           {
             opacity: 1,
             y: 0,
-            duration: 1,
+            duration: 0.2,
             delay: index * 0.2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 80%",
+              start: "top 100%",
               end: "bottom 20%",
               toggleActions: "play none none none",
             },
@@ -62,7 +62,8 @@ const PortfolioSection = () => {
             type="single"
             value={selectedType}
             onValueChange={(value) =>
-              value && setSelectedType(value as "frontend" | "backend")
+              value &&
+              setSelectedType(value as "frontend" | "backend" | "websites")
             }
             className="justify-center mb-8"
           >
@@ -80,6 +81,13 @@ const PortfolioSection = () => {
             >
               Backend
             </ToggleGroupItem>
+            <ToggleGroupItem
+              value="websites"
+              variant="outline"
+              className="px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+            >
+              Websites
+            </ToggleGroupItem>
           </ToggleGroup>
         </div>
 
@@ -94,28 +102,46 @@ const PortfolioSection = () => {
             >
               <div className="relative overflow-hidden">
                 <div className="aspect-video bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center">
-                  <div className="text-neutral-400 text-sm">
-                    Project Preview
-                  </div>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback caso a imagem não carregue
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML =
+                          '<div class="text-neutral-400 text-sm">Project Preview</div>';
+                      }
+                    }}
+                  />
                 </div>
                 <div className="absolute inset-0 bg-neutral-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="flex space-x-4">
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      className="bg-white text-neutral-900 hover:bg-neutral-100"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      View Live
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="border-white text-black hover:bg-neutral-100 hover:text-neutral-900"
-                    >
-                      <Github className="w-4 h-4 mr-2" />
-                      Code
-                    </Button>
+                    {project.link && (
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        className="bg-white text-neutral-900 hover:bg-neutral-100"
+                        onClick={() => window.open(project.link, "_blank")}
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        View Live
+                      </Button>
+                    )}
+                    {project.github && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="border-white text-white hover:bg-white hover:text-neutral-900"
+                        onClick={() => window.open(project.github, "_blank")}
+                      >
+                        <Github className="w-4 h-4 mr-2" />
+                        Code
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
