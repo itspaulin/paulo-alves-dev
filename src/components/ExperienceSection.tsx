@@ -94,7 +94,7 @@ const experiences = [
   {
     company: "Super1",
     role: "Frontend Developer",
-    period: "Feb 2024 - Aug 2024",
+    period: "Feb 2025 - Aug 2025",
     type: "Contract",
     description:
       "Marketplace platform development with focus on user experience",
@@ -103,7 +103,7 @@ const experiences = [
       "Created responsive and dynamic user interfaces",
       "Optimized performance for high-traffic applications",
     ],
-    technologies: ["Svelte", "JavaScript", "CSS", "HTML"],
+    technologies: ["Svelte", "JavaScript", "CSS", "HTML", "Docker", "Tailwind"],
   },
   {
     company: "Agência Gentileza",
