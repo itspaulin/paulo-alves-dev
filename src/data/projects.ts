@@ -14,7 +14,7 @@ export const projects: Project[] = [
     title: "Menu system",
     description:
       "Online menu system developed with user registration, authentication, product creation and editing, shopping cart, and integrated payment processing — ideal for restaurants or delivery services.",
-    image: "/src/assets/foodex.png",
+    image: "/assets/foodex.png",
     technologies: [
       "React",
       "JavaScript",
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     title: "Automotive Management System",
     description:
       "A robust backend system for managing automotive operations — including vehicles, services, customers, and maintenance workflows. Built with NestJS, DDD, and Clean Architecture principles.",
-    image: "/src/assets/backend.avif",
+    image: "/assets/backend.avif",
     technologies: ["Node.js", "NestJS", "Docker", "PostgreSQL", "Prisma"],
     category: "Backend Service",
     type: "backend",
@@ -42,7 +42,7 @@ export const projects: Project[] = [
     title: "Biox Recipes",
     description:
       "A recipe management system built with NestJS following Domain-Driven Design (DDD) principles. This application provides a comprehensive solution for managing recipes, ingredients, and cooking instructions..",
-    image: "/src/assets/backend.avif",
+    image: "/assets/backend.avif",
     technologies: ["Node.js", "NestJS", "Docker", "PostgreSQL", "Prisma"],
     category: "View Recipes",
     type: "backend",
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     title: "ForumCore API",
     description:
       "A fully modular backend system for managing a modern Q&A forum — built with NestJS, Clean Architecture, and Domain-Driven Design. CleanForum handles questions, answers, comments, user auth, and file uploads..",
-    image: "/src/assets/backend.avif",
+    image: "/assets/backend.avif",
     technologies: [
       "Node.js",
       "NestJS",
@@ -69,7 +69,7 @@ export const projects: Project[] = [
     title: "Amelis Conecta",
     description:
       "Modern healthcare landing page for 'Amelis' with purple/pink design, featuring patient care solutions, testimonials, chatbot interface, and corporate wellness services with clean UX.RetryClaude can make mistakes. Please double-check responses.",
-    image: "/src/assets/amelis.png",
+    image: "/assets/amelis.png",
     technologies: ["Wordpress", "Elementor", "CSS"],
     category: "Business Website",
     type: "websites",
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     title: "Bloom Studio",
     description:
       "Bloom Beauty Studio offers premium organic products, 8+ years of expertise, and personalized care in a relaxing space. Book your appointment and feel confident, renewed, and truly pampered.",
-    image: "/src/assets/bloom.png",
+    image: "/assets/bloom.png",
     technologies: ["Wordpress", "Elementor", "CSS"],
     category: "Business Website",
     type: "websites",
@@ -89,7 +89,7 @@ export const projects: Project[] = [
     title: "CupCode",
     description:
       "Discover your ideal co-working space in Austin. Cup & Code offers flexible desks, fresh coffee, and a vibrant community to boost your productivity and creativity. Book your spot today.",
-    image: "/src/assets/cup.png",
+    image: "/assets/cup.png",
     technologies: ["React.js", "GSAP", "Tailwind"],
     category: "Business Website",
     type: "websites",
@@ -99,7 +99,7 @@ export const projects: Project[] = [
     title: "Sterling Architecture Website",
     description:
       "Sterling Architecture delivers award-winning residential and commercial designs with precision, creativity, and over $120M in completed projects. Start your vision with expert guidance today.",
-    image: "/src/assets/sterling.png",
+    image: "/assets/sterling.png",
     technologies: ["React.js", "GSAP", "Tailwind"],
     category: "Business Website",
     type: "websites",
@@ -109,7 +109,7 @@ export const projects: Project[] = [
     title: "Mountain View Auto Repair",
     description:
       "Trusted auto repair in Boulder, CO for 15+ years. Family-owned, ASE certified, free estimates, and 24/7 support. Experience honest service and quality repairs you can rely on.",
-    image: "/src/assets/mountain.png",
+    image: "/assets/mountain.png",
     technologies: ["Next.js", "Shopify", "Tailwind", "Algolia"],
     category: "Business Website",
     type: "websites",
@@ -119,7 +119,7 @@ export const projects: Project[] = [
     title: "StoqFácil",
     description:
       "StoqFácil is a trusted distributor of electrical auto parts in Rio Grande do Norte, offering quality service, fast delivery, and tailored solutions for workshops and retailers.",
-    image: "/src/assets/stoq facil.png",
+    image: "/assets/stoq facil.png",
     technologies: ["Wordpress", "Elementor", "CSS"],
     category: "Landing Page",
     type: "websites",
