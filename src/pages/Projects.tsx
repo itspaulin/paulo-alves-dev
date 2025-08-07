@@ -10,6 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { getFilteredProjects } from "@/utils/projectUtils";
+import { ThreeBackground } from "@/components/ThreeBackground";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,6 +58,7 @@ const Projects = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
+      <ThreeBackground />
 
       <section ref={sectionRef} className="section-padding pt-24">
         <div className="container-width">
