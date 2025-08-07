@@ -29,6 +29,16 @@ export const projects: Project[] = [
     github: "https://github.com/itspaulin/food-explorer",
   },
   {
+    title: "Le Jardin Noir",
+    description:
+      "A refined and fully responsive landing page designed for a fictional high-end French restaurant specializing in contemporary cuisine.",
+    image: "/assets/lejardin.png",
+    technologies: ["React", "JavaScript", "Tailwind", "Toast", "GSAP"],
+    category: "Restaurant Site",
+    type: "frontend",
+    link: "https://jardin-noir-eta.vercel.app/",
+  },
+  {
     title: "Automotive Management System",
     description:
       "A robust backend system for managing automotive operations — including vehicles, services, customers, and maintenance workflows. Built with NestJS, DDD, and Clean Architecture principles.",
@@ -124,5 +134,35 @@ export const projects: Project[] = [
     category: "Landing Page",
     type: "websites",
     link: "https://stoqfacil.com/",
+  },
+  {
+    title: "Feito Potiguar",
+    description:
+      "Feito Potiguar is a platform that promotes local producers from Rio Grande do Norte, highlighting their origin and quality. It features a product catalog, informational content, and a contact form.",
+    image: "/assets/feito potiguar.png",
+    technologies: ["Wordpress", "Elementor", "CSS"],
+    category: "Landing Page",
+    type: "websites",
+    link: "https://feitopotiguar.com.br/",
+  },
+  {
+    title: "Cacio Paiva Odontopediatria",
+    description:
+      "A colorful and family-friendly website created for a real pediatric dentistry clinic. The design focuses on building trust with parents while creating a fun and welcoming experience for children.",
+    image: "/assets/cacio.png",
+    technologies: ["Wordpress", "Elementor", "CSS"],
+    category: "Landing Page",
+    type: "websites",
+    link: "https://caciopaiva.com.br/",
+  },
+  {
+    title: "USG Exames",
+    description:
+      "A modern and professional website developed for a medical clinic specialized in vascular ultrasound diagnostics and treatment. The design emphasizes trust, precision, and accessibility, tailored to a health-focused audience.",
+    image: "/assets/usg.png",
+    technologies: ["Wordpress", "Elementor", "CSS"],
+    category: "Landing Page",
+    type: "websites",
+    link: "https://usgexames.com.br/",
   },
 ];
