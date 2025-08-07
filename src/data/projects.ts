@@ -46,7 +46,7 @@ export const projects: Project[] = [
     technologies: ["Node.js", "NestJS", "Docker", "PostgreSQL", "Prisma"],
     category: "View Recipes",
     type: "backend",
-    link: "https://github.com/itspaulin/biox-recipes",
+    github: "https://github.com/itspaulin/biox-recipes",
   },
   {
     title: "ForumCore API",
@@ -63,7 +63,7 @@ export const projects: Project[] = [
     ],
     category: "API Backend",
     type: "backend",
-    link: "https://github.com/itspaulin/ForumCore",
+    github: "https://github.com/itspaulin/ForumCore",
   },
   {
     title: "Amelis Conecta",

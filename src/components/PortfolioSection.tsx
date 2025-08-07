@@ -45,86 +45,33 @@ const PortfolioSection = () => {
     });
   };
 
-  // Função para animar entrada dos novos cards
+  // Função para animar entrada dos novos cards - SIMPLIFICADA
   const animateCardsIn = () => {
     if (!cardsRef.current.length) return;
 
-    // Limpa animações anteriores do contexto
+    // Limpa animações anteriores
     if (ctxRef.current) {
-      ctxRef.current.revert();
+      ctxRef.current.kill();
     }
 
-    // Cria novo contexto para as animações
+    // Animação básica de entrada sem hover complexo
     ctxRef.current = gsap.context(() => {
-      // Timeline para entrada suave
-      const tl = gsap.timeline();
-
-      // Set inicial e anima entrada
-      tl.fromTo(
+      gsap.fromTo(
         cardsRef.current,
         {
           opacity: 0,
           y: 60,
           scale: 0.9,
-          rotationX: 15,
         },
         {
           opacity: 1,
           y: 0,
           scale: 1,
-          rotationX: 0,
           duration: 0.8,
           ease: "power3.out",
           stagger: 0.1,
         }
       );
-
-      // Adiciona hover animations
-      cardsRef.current.forEach((card, index) => {
-        if (!card) return;
-
-        const overlay = card.querySelector(".overlay");
-
-        // Mouse enter com delay progressivo para evitar conflitos
-        const onEnter = () => {
-          gsap.to(card, {
-            y: -8,
-            scale: 1.02,
-            duration: 0.3,
-            ease: "power2.out",
-            delay: index * 0.02, // Pequeno delay progressivo
-          });
-
-          if (overlay) {
-            gsap.to(overlay, {
-              opacity: 1,
-              duration: 0.3,
-              ease: "power2.out",
-            });
-          }
-        };
-
-        // Mouse leave
-        const onLeave = () => {
-          gsap.to(card, {
-            y: 0,
-            scale: 1,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-
-          if (overlay) {
-            gsap.to(overlay, {
-              opacity: 0,
-              duration: 0.3,
-              ease: "power2.out",
-            });
-          }
-        };
-
-        card.addEventListener("mouseenter", onEnter);
-        card.addEventListener("mouseleave", onLeave);
-      });
     }, sectionRef);
   };
 
@@ -175,14 +122,12 @@ const PortfolioSection = () => {
 
   // Effect para animar entrada quando filteredProjects muda
   useEffect(() => {
-    // Reset das referências
     cardsRef.current = [];
 
-    // Pequeno delay para garantir que o DOM foi atualizado
     const timer = setTimeout(() => {
       animateCardsIn();
-      setIsTransitioning(false); // Finaliza transição
-    }, 100); // Aumentei o delay para 100ms
+      setIsTransitioning(false);
+    }, 100);
 
     return () => {
       clearTimeout(timer);
@@ -195,7 +140,6 @@ const PortfolioSection = () => {
       if (ctxRef.current) {
         ctxRef.current.revert();
       }
-      // Limpa ScrollTriggers da seção
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.trigger && sectionRef.current?.contains(trigger.trigger)) {
           trigger.kill();
@@ -227,7 +171,7 @@ const PortfolioSection = () => {
               }
             }}
             className="justify-center mb-8"
-            disabled={isTransitioning} // Desabilita durante transição
+            disabled={isTransitioning}
           >
             <ToggleGroupItem
               value="frontend"
@@ -261,15 +205,15 @@ const PortfolioSection = () => {
 
         <div
           ref={cardsContainerRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[400px]" // min-height para evitar layout shift
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[400px]"
         >
           {filteredProjects.map((project, index) => (
             <Card
-              key={`${project.title}-${selectedType}-${index}`} // Key mais específica
+              key={`${project.title}-${selectedType}-${index}`}
               ref={(el) => {
                 if (el) cardsRef.current[index] = el;
               }}
-              className="group overflow-hidden hover-shadow card-content transform-gpu" // Remove opacity-0 inicial
+              className="group overflow-hidden hover-shadow card-content transform-gpu hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300"
             >
               <div className="relative overflow-hidden">
                 <div className="aspect-video bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center">
@@ -289,7 +233,8 @@ const PortfolioSection = () => {
                     }}
                   />
                 </div>
-                <div className="overlay absolute inset-0 bg-neutral-900/80 opacity-0 transition-all duration-300 flex items-center justify-center">
+                {/* OVERLAY COM HOVER PURO CSS - SEM GSAP */}
+                <div className="absolute inset-0 bg-neutral-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="flex space-x-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     {project.link && (
                       <Button
@@ -306,7 +251,7 @@ const PortfolioSection = () => {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="border-white text-white hover:bg-white hover:text-neutral-900 transform hover:scale-105 transition-all duration-200"
+                        className="border-white text-neutral-900 hover:bg-neutral-100 hover:text-neutral-900 transform hover:scale-105 transition-all duration-200"
                         onClick={() => window.open(project.github, "_blank")}
                       >
                         <Github className="w-4 h-4 mr-2" />
