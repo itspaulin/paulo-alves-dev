@@ -15,6 +15,7 @@ import { Mail, Linkedin, Github, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import emailjs from "@emailjs/browser";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,7 +56,7 @@ const ContactSection = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
@@ -68,22 +69,42 @@ const ContactSection = () => {
       return;
     }
 
-    // Here you would typically send the form data to your backend
-    console.log("Form submitted:", formData);
+    try {
+      const serviceId = "service_05i5mno";
+      const templateId = "template_0ljg32k";
+      const publicKey = "gh2j6zPhRWhZXFAZp";
 
-    toast({
-      title: "Message Sent!",
-      description:
-        "Thank you for your message. I'll get back to you within 24 hours.",
-    });
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject || "Novo contato do portfolio",
+        message: formData.projectDetails,
+        to_email: "pauloalvescode@gmail.com",
+      };
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      projectDetails: "",
-    });
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      toast({
+        title: "Message Sent!",
+        description:
+          "Thank you for your message. I'll get back to you within 24 hours.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        projectDetails: "",
+      });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {

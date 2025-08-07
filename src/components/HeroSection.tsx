@@ -70,7 +70,7 @@ const HeroSection = () => {
           ref={titleRef}
           className="text-display gradient-text mb-6 leading-tight"
         >
-          Full Stack Developer
+          Paulo Alves
         </h1>
 
         <p

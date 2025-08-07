@@ -8,7 +8,6 @@ const Footer = () => {
       <div className="container-width">
         <div className="py-16 px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* Brand */}
             <div>
               <div className="font-mono font-semibold text-xl mb-4">
                 Paulo Alves
@@ -19,19 +18,21 @@ const Footer = () => {
               </p>
               <div className="flex space-x-4">
                 <a
-                  href="mailto:paulo.alves@example.com"
+                  href="mailto:pauloalvescode@gmail.com"
                   className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-neutral-700 transition-colors"
                 >
                   <Mail className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://linkedin.com/in/paulobarbosacode"
+                  target="_blank"
                   className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-neutral-700 transition-colors"
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://github.com/itspaulin"
+                  target="_blank"
                   className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-neutral-700 transition-colors"
                 >
                   <Github className="w-5 h-5" />
