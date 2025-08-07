@@ -108,7 +108,7 @@ const experiences = [
   {
     company: "Agência Gentileza",
     role: "Frontend Developer",
-    period: "Nov 2023 - Jun 2024",
+    period: "Nov 2023 - Feb 2025",
     type: "Contract",
     description:
       "Educational platform development and legacy system modernization",

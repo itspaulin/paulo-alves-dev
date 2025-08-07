@@ -14,42 +14,200 @@ gsap.registerPlugin(ScrollTrigger);
 const PortfolioSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const ctxRef = useRef<gsap.Context | null>(null);
   const [selectedType, setSelectedType] = useState<
     "frontend" | "backend" | "websites"
   >("frontend");
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const filteredProjects = getProjectsByType(selectedType);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
+  // Função para animar saída dos cards existentes
+  const animateCardsOut = () => {
+    return new Promise<void>((resolve) => {
+      if (!cardsRef.current.length) {
+        resolve();
+        return;
+      }
+
+      gsap.to(cardsRef.current, {
+        opacity: 0,
+        y: -30,
+        scale: 0.95,
+        rotationX: -15,
+        duration: 0.4,
+        ease: "power2.in",
+        stagger: 0.05,
+        onComplete: resolve,
+      });
+    });
+  };
+
+  // Função para animar entrada dos novos cards
+  const animateCardsIn = () => {
+    if (!cardsRef.current.length) return;
+
+    // Limpa animações anteriores do contexto
+    if (ctxRef.current) {
+      ctxRef.current.revert();
+    }
+
+    // Cria novo contexto para as animações
+    ctxRef.current = gsap.context(() => {
+      // Timeline para entrada suave
+      const tl = gsap.timeline();
+
+      // Set inicial e anima entrada
+      tl.fromTo(
+        cardsRef.current,
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.9,
+          rotationX: 15,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotationX: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.1,
+        }
+      );
+
+      // Adiciona hover animations
       cardsRef.current.forEach((card, index) => {
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.2,
-            delay: index * 0.2,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 100%",
-              end: "bottom 20%",
-              toggleActions: "play none none none",
-            },
+        if (!card) return;
+
+        const overlay = card.querySelector(".overlay");
+
+        // Mouse enter com delay progressivo para evitar conflitos
+        const onEnter = () => {
+          gsap.to(card, {
+            y: -8,
+            scale: 1.02,
+            duration: 0.3,
+            ease: "power2.out",
+            delay: index * 0.02, // Pequeno delay progressivo
+          });
+
+          if (overlay) {
+            gsap.to(overlay, {
+              opacity: 1,
+              duration: 0.3,
+              ease: "power2.out",
+            });
           }
-        );
+        };
+
+        // Mouse leave
+        const onLeave = () => {
+          gsap.to(card, {
+            y: 0,
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+
+          if (overlay) {
+            gsap.to(overlay, {
+              opacity: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          }
+        };
+
+        card.addEventListener("mouseenter", onEnter);
+        card.addEventListener("mouseleave", onLeave);
       });
     }, sectionRef);
+  };
 
-    return () => ctx.revert();
-  }, [filteredProjects]); // Atualiza quando os projetos filtrados mudam
+  // Função principal de transição entre seções
+  const handleSectionTransition = async (
+    newType: "frontend" | "backend" | "websites"
+  ) => {
+    if (isTransitioning || newType === selectedType) return;
+
+    setIsTransitioning(true);
+
+    // Anima saída dos cards atuais
+    await animateCardsOut();
+
+    // Muda o tipo (isso vai triggear re-render com novos projetos)
+    setSelectedType(newType);
+  };
+
+  // Header animation (executada apenas uma vez)
+  useEffect(() => {
+    if (!headerRef.current) return;
+
+    const headerCtx = gsap.context(() => {
+      const headerElements = headerRef.current?.children;
+      if (!headerElements) return;
+
+      gsap.fromTo(
+        headerElements,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => headerCtx.revert();
+  }, []);
+
+  // Effect para animar entrada quando filteredProjects muda
+  useEffect(() => {
+    // Reset das referências
+    cardsRef.current = [];
+
+    // Pequeno delay para garantir que o DOM foi atualizado
+    const timer = setTimeout(() => {
+      animateCardsIn();
+      setIsTransitioning(false); // Finaliza transição
+    }, 100); // Aumentei o delay para 100ms
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [filteredProjects]);
+
+  // Cleanup geral
+  useEffect(() => {
+    return () => {
+      if (ctxRef.current) {
+        ctxRef.current.revert();
+      }
+      // Limpa ScrollTriggers da seção
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.trigger && sectionRef.current?.contains(trigger.trigger)) {
+          trigger.kill();
+        }
+      });
+    };
+  }, []);
 
   return (
     <section id="portfolio" ref={sectionRef} className="section-padding">
       <div className="container-width">
-        <div className="text-center mb-16">
+        <div ref={headerRef} className="text-center mb-16">
           <h2 className="text-section gradient-text mb-4">
             Selected Work & Projects
           </h2>
@@ -61,53 +219,66 @@ const PortfolioSection = () => {
           <ToggleGroup
             type="single"
             value={selectedType}
-            onValueChange={(value) =>
-              value &&
-              setSelectedType(value as "frontend" | "backend" | "websites")
-            }
+            onValueChange={(value) => {
+              if (value) {
+                handleSectionTransition(
+                  value as "frontend" | "backend" | "websites"
+                );
+              }
+            }}
             className="justify-center mb-8"
+            disabled={isTransitioning} // Desabilita durante transição
           >
             <ToggleGroupItem
               value="frontend"
               variant="outline"
-              className="px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+              className={`px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground transition-all duration-300 ${
+                isTransitioning ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
               Frontend
             </ToggleGroupItem>
             <ToggleGroupItem
               value="backend"
               variant="outline"
-              className="px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+              className={`px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground transition-all duration-300 ${
+                isTransitioning ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
               Backend
             </ToggleGroupItem>
             <ToggleGroupItem
               value="websites"
               variant="outline"
-              className="px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+              className={`px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground transition-all duration-300 ${
+                isTransitioning ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
               Websites
             </ToggleGroupItem>
           </ToggleGroup>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div
+          ref={cardsContainerRef}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[400px]" // min-height para evitar layout shift
+        >
           {filteredProjects.map((project, index) => (
             <Card
-              key={project.title}
+              key={`${project.title}-${selectedType}-${index}`} // Key mais específica
               ref={(el) => {
                 if (el) cardsRef.current[index] = el;
               }}
-              className="group overflow-hidden hover-shadow"
+              className="group overflow-hidden hover-shadow card-content transform-gpu" // Remove opacity-0 inicial
             >
               <div className="relative overflow-hidden">
                 <div className="aspect-video bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
                     onError={(e) => {
-                      // Fallback caso a imagem não carregue
                       const target = e.target as HTMLImageElement;
                       target.style.display = "none";
                       const parent = target.parentElement;
@@ -118,13 +289,13 @@ const PortfolioSection = () => {
                     }}
                   />
                 </div>
-                <div className="absolute inset-0 bg-neutral-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="flex space-x-4">
+                <div className="overlay absolute inset-0 bg-neutral-900/80 opacity-0 transition-all duration-300 flex items-center justify-center">
+                  <div className="flex space-x-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     {project.link && (
                       <Button
                         size="sm"
                         variant="secondary"
-                        className="bg-white text-neutral-900 hover:bg-neutral-100"
+                        className="bg-white text-neutral-900 hover:bg-neutral-100 transform hover:scale-105 transition-all duration-200"
                         onClick={() => window.open(project.link, "_blank")}
                       >
                         <ExternalLink className="w-4 h-4 mr-2" />
@@ -135,7 +306,7 @@ const PortfolioSection = () => {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="border-white text-white hover:bg-white hover:text-neutral-900"
+                        className="border-white text-white hover:bg-white hover:text-neutral-900 transform hover:scale-105 transition-all duration-200"
                         onClick={() => window.open(project.github, "_blank")}
                       >
                         <Github className="w-4 h-4 mr-2" />
@@ -153,7 +324,7 @@ const PortfolioSection = () => {
                   </Badge>
                 </div>
 
-                <h3 className="text-xl font-semibold text-neutral-900 mb-3">
+                <h3 className="text-xl font-semibold text-neutral-900 mb-3 group-hover:text-primary transition-colors duration-300">
                   {project.title}
                 </h3>
 
@@ -166,7 +337,7 @@ const PortfolioSection = () => {
                     <Badge
                       key={tech}
                       variant="outline"
-                      className="text-xs border-neutral-300"
+                      className="text-xs border-neutral-300 hover:border-primary hover:text-primary transition-colors duration-200"
                     >
                       {tech}
                     </Badge>
@@ -181,7 +352,7 @@ const PortfolioSection = () => {
           <Link to="/projects">
             <Button
               variant="outline"
-              className="border-neutral-300 hover:bg-neutral-50"
+              className="border-neutral-300 hover:bg-neutral-50 transform hover:scale-105 transition-all duration-300"
             >
               View All Projects
             </Button>
