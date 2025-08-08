@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import LanguageToggle from "./LanguageToggle";
 
 const Navigation = () => {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -39,34 +42,37 @@ const Navigation = () => {
               onClick={() => scrollToSection("about")}
               className="text-neutral-600 hover:text-neutral-900 transition-colors"
             >
-              About
+              {t("nav.about")}
             </button>
             <button
               onClick={() => scrollToSection("experience")}
               className="text-neutral-600 hover:text-neutral-900 transition-colors"
             >
-              Experience
+              {t("nav.experience")}
             </button>
             <button
               onClick={() => scrollToSection("portfolio")}
               className="text-neutral-600 hover:text-neutral-900 transition-colors"
             >
-              Work
+              {t("nav.work")}
             </button>
             <button
               onClick={() => scrollToSection("contact")}
               className="text-neutral-600 hover:text-neutral-900 transition-colors"
             >
-              Contact
+              {t("nav.contact")}
             </button>
           </div>
 
-          <Button
-            onClick={() => scrollToSection("contact")}
-            className="bg-neutral-900 hover:bg-neutral-800 text-white"
-          >
-            Let's Talk
-          </Button>
+          <div className="flex items-center gap-4">
+            <LanguageToggle />
+            <Button
+              onClick={() => scrollToSection("contact")}
+              className="bg-neutral-900 hover:bg-neutral-800 text-white"
+            >
+              {t("nav.letsTalk")}
+            </Button>
+          </div>
         </div>
       </div>
     </nav>

@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ThreeBackground } from "./ThreeBackground";
+import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 
 const HeroSection = () => {
+  const { t } = useTranslation();
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -72,16 +74,14 @@ const HeroSection = () => {
           ref={titleRef}
           className="text-display gradient-text mb-6 leading-tight"
         >
-          Paulo Alves
+          {t("hero.title")}
         </h1>
 
         <p
           ref={subtitleRef}
           className="text-body-large text-neutral-600 max-w-2xl mx-auto mb-12"
         >
-          Building scalable web applications and performant APIs with React,
-          Next.js, and Node.js for 3+ years. Transforming ideas into digital
-          solutions for clients worldwide.
+          {t("hero.subtitle")}
         </p>
 
         <div
@@ -93,7 +93,7 @@ const HeroSection = () => {
             onClick={() => scrollToSection("portfolio")}
             className="bg-neutral-900 hover:bg-neutral-800 text-white px-8 py-3 text-lg hover-shadow"
           >
-            View My Work
+            {t("hero.viewWork")}
           </Button>
           <Button
             size="lg"
@@ -101,7 +101,7 @@ const HeroSection = () => {
             onClick={() => scrollToSection("contact")}
             className="border-neutral-300 hover:bg-neutral-50 px-8 py-3 text-lg hover-shadow"
           >
-            Let's Talk
+            {t("hero.letsTalk")}
           </Button>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import profileImage from "/assets/paulo-profile.jpg";
@@ -7,6 +8,7 @@ import profileImage from "/assets/paulo-profile.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 const AboutSection = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -92,30 +94,14 @@ const AboutSection = () => {
           <div ref={contentRef} className="space-y-8">
             <div>
               <h2 className="text-section gradient-text mb-4">
-                Transforming Ideas into Digital Solutions
+                {t("about.title")}
               </h2>
               <div className="w-20 h-1 bg-neutral-900 mb-6"></div>
             </div>
 
             <div className="space-y-6 text-body text-neutral-600">
               <p>
-                With 3+ years of Full Stack development experience and a
-                Software Engineering degree from UniCesumar, I specialize in
-                building scalable web applications that solve real business
-                problems.
-              </p>
-
-              <p>
-                My journey was accelerated through Rocketseat's intensive
-                bootcamp, where I mastered modern technologies and best
-                practices. I focus on creating simple, efficient solutions while
-                constantly seeking technical challenges that drive my growth.
-              </p>
-
-              <p>
-                I believe in clean code, scalable architecture, and delivering
-                exceptional user experiences that drive business results for
-                clients across the globe.
+                {t("about.description")}
               </p>
             </div>
 
@@ -124,13 +110,13 @@ const AboutSection = () => {
                 <div className="text-2xl font-bold text-neutral-900 mb-2">
                   3+
                 </div>
-                <div className="text-caption">Years Experience</div>
+                <div className="text-caption">{t("about.experience")}</div>
               </Card>
               <Card className="p-6 text-center hover-shadow">
                 <div className="text-2xl font-bold text-neutral-900 mb-2">
-                  15+
+                  50+
                 </div>
-                <div className="text-caption">Projects Delivered</div>
+                <div className="text-caption">{t("about.projects")}</div>
               </Card>
             </div>
           </div>

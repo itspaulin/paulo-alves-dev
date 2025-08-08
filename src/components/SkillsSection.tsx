@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -35,6 +36,7 @@ const skills = [
 ];
 
 const SkillsSection = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
@@ -69,11 +71,10 @@ const SkillsSection = () => {
       <div className="container-width">
         <div className="text-center mb-16">
           <h2 className="text-section gradient-text mb-4">
-            Technical Expertise
+            {t("skills.title")}
           </h2>
           <p className="text-body-large text-neutral-600 max-w-2xl mx-auto">
-            Modern technologies and best practices for building exceptional
-            digital experiences
+            {t("skills.subtitle")}
           </p>
         </div>
 
@@ -90,7 +91,7 @@ const SkillsSection = () => {
                 {skill.icon}
               </div>
               <h3 className="text-xl font-semibold text-neutral-900 mb-4">
-                {skill.category}
+                {t(`skills.${skill.category.toLowerCase()}`)}
               </h3>
               <div className="space-y-2">
                 {skill.technologies.map((tech) => (
