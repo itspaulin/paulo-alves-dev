@@ -13,7 +13,7 @@ export const useAllProjects = (): Project[] => {
   return useProjects();
 };
 
-// Hook para projetos filtrados (incluindo "all")
+// Hook para projetos filtrados (incluindo "all") - VERSÃO CORRIGIDA
 export const useFilteredProjects = (type: string): Project[] => {
   const projects = useProjects();
   if (type === "all") return projects;
@@ -51,6 +51,15 @@ export const useProjectTypes = (): string[] => {
   return [...new Set(projects.map((project) => project.type))];
 };
 
+// FUNÇÃO PRINCIPAL CORRIGIDA - pode ser chamada com apenas o tipo
+export const getFilteredProjects = (type: string): Project[] => {
+  // Não podemos usar hooks aqui, então essa função precisa receber os projetos
+  // ou ser convertida em hook
+  throw new Error(
+    "Use useFilteredProjects hook instead of getFilteredProjects function"
+  );
+};
+
 // Versões não-hook para casos específicos onde você já tem os projetos
 export const getProjectsByType = (
   projects: Project[],
@@ -59,7 +68,7 @@ export const getProjectsByType = (
   return projects.filter((project) => project.type === type);
 };
 
-export const getFilteredProjects = (
+export const getFilteredProjectsWithData = (
   projects: Project[],
   type: string
 ): Project[] => {

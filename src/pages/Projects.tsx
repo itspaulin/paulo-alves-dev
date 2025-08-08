@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next"; // ADICIONADO
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,17 +10,18 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { getFilteredProjects } from "@/utils/projectUtils";
+import { useFilteredProjects } from "@/utils/projectUtils";
 import { ThreeBackground } from "@/components/ThreeBackground";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
+  const { t } = useTranslation(); // ADICIONADO
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const [selectedType, setSelectedType] = useState<string>("all");
 
-  const filteredProjects = getFilteredProjects(selectedType);
+  const filteredProjects = useFilteredProjects(selectedType);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -68,18 +70,16 @@ const Projects = () => {
               className="flex items-center text-neutral-600 hover:text-primary transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
+              {t("projects.backToHome")}
             </Link>
           </div>
 
           <div className="text-center mb-16">
             <h1 className="text-section gradient-text mb-4">
-              All Projects & Work
+              {t("projects.title")}
             </h1>
             <p className="text-body-large text-neutral-600 max-w-2xl mx-auto mb-8">
-              Explore my complete portfolio of frontend applications, backend
-              services, and websites across different industries and
-              technologies
+              {t("projects.subtitle")}
             </p>
 
             <ToggleGroup
@@ -93,28 +93,28 @@ const Projects = () => {
                 variant="outline"
                 className="px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
               >
-                All Projects
+                {t("projects.filter.all")}
               </ToggleGroupItem>
               <ToggleGroupItem
                 value="frontend"
                 variant="outline"
                 className="px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
               >
-                Frontend
+                {t("projects.filter.frontend")}
               </ToggleGroupItem>
               <ToggleGroupItem
                 value="backend"
                 variant="outline"
                 className="px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
               >
-                Backend
+                {t("projects.filter.backend")}
               </ToggleGroupItem>
               <ToggleGroupItem
                 value="websites"
                 variant="outline"
                 className="px-6 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
               >
-                Websites
+                {t("projects.filter.websites")}
               </ToggleGroupItem>
             </ToggleGroup>
           </div>
@@ -135,7 +135,6 @@ const Projects = () => {
                       alt={project.title}
                       className="w-full h-full object-cover"
                       onError={(e) => {
-                        // Fallback caso a imagem não carregue
                         const target = e.target as HTMLImageElement;
                         target.style.display = "none";
                         const parent = target.parentElement;
@@ -156,7 +155,7 @@ const Projects = () => {
                           onClick={() => window.open(project.link, "_blank")}
                         >
                           <ExternalLink className="w-4 h-4 mr-2" />
-                          View Live
+                          {t("projects.viewLive")}
                         </Button>
                       )}
                       {project.github && (
@@ -167,7 +166,7 @@ const Projects = () => {
                           onClick={() => window.open(project.github, "_blank")}
                         >
                           <Github className="w-4 h-4 mr-2" />
-                          Code
+                          {t("projects.code")}
                         </Button>
                       )}
                     </div>
@@ -211,7 +210,7 @@ const Projects = () => {
           {filteredProjects.length === 0 && (
             <div className="text-center py-16">
               <p className="text-neutral-500">
-                No projects found for the selected filter.
+                {t("projects.noProjectsFound")}
               </p>
             </div>
           )}
