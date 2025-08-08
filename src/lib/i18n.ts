@@ -15,7 +15,7 @@ const resources = {
       // Hero Section
       "hero.title": "Paulo Alves",
       "hero.subtitle":
-        "Building scalable web applications and performant APIs with React, Next.js, and Node.js for 3+ years. Transforming ideas into digital solutions for clients worldwide.",
+        "Building scalable web applications and performant APIs with React, Next.js, and Node.js for 3+ years. Transforming ideas into digital solutions.",
       "hero.viewWork": "View My Work",
       "hero.letsTalk": "Let's Talk",
 
@@ -266,7 +266,7 @@ const resources = {
       // Hero Section
       "hero.title": "Paulo Alves",
       "hero.subtitle":
-        "Construindo aplicações web escaláveis e APIs performáticas com React, Next.js e Node.js há mais de 3 anos. Transformando ideias em soluções digitais para clientes no mundo todo.",
+        "Construindo aplicações web escaláveis e APIs performáticas com React, Next.js e Node.js há mais de 3 anos. Transformando ideias em soluções digitais.",
       "hero.viewWork": "Ver Meus Trabalhos",
       "hero.letsTalk": "Vamos Conversar",
 
