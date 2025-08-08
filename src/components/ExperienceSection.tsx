@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -67,64 +68,70 @@ const ScrollTrigger = {};
 // Simulando o registro do plugin (remova se tiver GSAP real)
 gsap.registerPlugin();
 
-const experiences = [
-  {
-    company: "VesalStudio",
-    role: "Full Stack Developer",
-    period: "Oct 2022 - Present",
-    type: "Full-time",
-    description:
-      "Leading fullstack web application development with modern technologies",
-    achievements: [
-      "Developed dynamic interfaces with React.js and Next.js",
-      "Built scalable RESTful APIs using Node.js",
-      "Designed and optimized SQL database architectures",
-      "Implemented TypeScript for enhanced code quality",
-      "Containerized applications with Docker for consistent deployments",
-    ],
-    technologies: [
-      "React.js",
-      "Next.js",
-      "Node.js",
-      "TypeScript",
-      "SQL",
-      "Docker",
-    ],
-  },
-  {
-    company: "Super1",
-    role: "Frontend Developer",
-    period: "Feb 2025 - Aug 2025",
-    type: "Contract",
-    description:
-      "Marketplace platform development with focus on user experience",
-    achievements: [
-      "Built interactive marketplace components using Svelte",
-      "Created responsive and dynamic user interfaces",
-      "Optimized performance for high-traffic applications",
-    ],
-    technologies: ["Svelte", "JavaScript", "CSS", "HTML", "Docker", "Tailwind"],
-  },
-  {
-    company: "Agência Gentileza",
-    role: "Frontend Developer",
-    period: "Nov 2023 - Feb 2025",
-    type: "Contract",
-    description:
-      "Educational platform development and legacy system modernization",
-    achievements: [
-      "Developed educational platform interfaces with React.js",
-      "Modernized legacy systems with improved UX/UI",
-      "Integrated third-party APIs for enhanced functionality",
-      "Applied best practices in frontend development",
-    ],
-    technologies: ["React.js", "JavaScript", "API Integration", "UX/UI"],
-  },
-];
-
 const ExperienceSection = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
+
+  // Dados das experiências usando as chaves de tradução
+  const experiences = [
+    {
+      company: t("experience.vesalstudio.company"),
+      role: t("experience.vesalstudio.title"),
+      period: t("experience.vesalstudio.period"),
+      type: t("experience.vesalstudio.type"),
+      description: t("experience.vesalstudio.description"),
+      achievements: [
+        t("experience.vesalstudio.achievement1"),
+        t("experience.vesalstudio.achievement2"),
+        t("experience.vesalstudio.achievement3"),
+        t("experience.vesalstudio.achievement4"),
+        t("experience.vesalstudio.achievement5"),
+      ],
+      technologies: [
+        "React.js",
+        "Next.js",
+        "Node.js",
+        "TypeScript",
+        "SQL",
+        "Docker",
+      ],
+    },
+    {
+      company: t("experience.super1.company"),
+      role: t("experience.super1.title"),
+      period: t("experience.super1.period"),
+      type: t("experience.super1.type"),
+      description: t("experience.super1.description"),
+      achievements: [
+        t("experience.super1.achievement1"),
+        t("experience.super1.achievement2"),
+        t("experience.super1.achievement3"),
+      ],
+      technologies: [
+        "Svelte",
+        "JavaScript",
+        "CSS",
+        "HTML",
+        "Docker",
+        "Tailwind",
+      ],
+    },
+    {
+      company: t("experience.gentileza.company"),
+      role: t("experience.gentileza.title"),
+      period: t("experience.gentileza.period"),
+      type: t("experience.gentileza.type"),
+      description: t("experience.gentileza.description"),
+      achievements: [
+        t("experience.gentileza.achievement1"),
+        t("experience.gentileza.achievement2"),
+        t("experience.gentileza.achievement3"),
+        t("experience.gentileza.achievement4"),
+      ],
+      technologies: ["React.js", "JavaScript", "API Integration", "UX/UI"],
+    },
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -169,11 +176,10 @@ const ExperienceSection = () => {
       <div className="container-width">
         <div className="text-center mb-16">
           <h2 className="text-section gradient-text mb-4">
-            Professional Experience
+            {t("experience.title")}
           </h2>
           <p className="text-body-large text-neutral-600 max-w-2xl mx-auto">
-            Building exceptional digital solutions across diverse industries and
-            technologies
+            {t("experience.subtitle")}
           </p>
         </div>
 
@@ -212,7 +218,7 @@ const ExperienceSection = () => {
                 <div className="lg:col-span-2">
                   <div className="mb-6">
                     <h4 className="font-medium text-neutral-900 mb-3">
-                      Key Achievements
+                      {t("experience.keyAchievements")}
                     </h4>
                     <ul className="space-y-2">
                       {exp.achievements.map((achievement, i) => (
@@ -228,7 +234,7 @@ const ExperienceSection = () => {
 
                   <div>
                     <h4 className="font-medium text-neutral-900 mb-3">
-                      Technologies
+                      {t("experience.technologies")}
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {exp.technologies.map((tech) => (

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,11 +8,12 @@ import { ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { getProjectsByType } from "@/utils/projectUtils";
+import { useProjectsByType } from "@/utils/projectUtils";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const PortfolioSection = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
@@ -22,7 +24,7 @@ const PortfolioSection = () => {
   >("frontend");
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const filteredProjects = getProjectsByType(selectedType);
+  const filteredProjects = useProjectsByType(selectedType);
 
   // Função para animar saída dos cards existentes
   const animateCardsOut = () => {
@@ -153,11 +155,10 @@ const PortfolioSection = () => {
       <div className="container-width">
         <div ref={headerRef} className="text-center mb-16">
           <h2 className="text-section gradient-text mb-4">
-            Selected Work & Projects
+            {t("portfolio.title")}
           </h2>
           <p className="text-body-large text-neutral-600 max-w-2xl mx-auto mb-8">
-            The development process that solves business problems through
-            scalable, modern solutions
+            {t("portfolio.subtitle")}
           </p>
 
           <ToggleGroup
@@ -180,7 +181,7 @@ const PortfolioSection = () => {
                 isTransitioning ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-              Frontend
+              {t("portfolio.frontend")}
             </ToggleGroupItem>
             <ToggleGroupItem
               value="backend"
@@ -189,7 +190,7 @@ const PortfolioSection = () => {
                 isTransitioning ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-              Backend
+              {t("portfolio.backend")}
             </ToggleGroupItem>
             <ToggleGroupItem
               value="websites"
@@ -198,7 +199,7 @@ const PortfolioSection = () => {
                 isTransitioning ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-              Websites
+              {t("portfolio.websites")}
             </ToggleGroupItem>
           </ToggleGroup>
         </div>
@@ -244,7 +245,7 @@ const PortfolioSection = () => {
                         onClick={() => window.open(project.link, "_blank")}
                       >
                         <ExternalLink className="w-4 h-4 mr-2" />
-                        View Live
+                        {t("projects.viewLive")}
                       </Button>
                     )}
                     {project.github && (
@@ -255,7 +256,7 @@ const PortfolioSection = () => {
                         onClick={() => window.open(project.github, "_blank")}
                       >
                         <Github className="w-4 h-4 mr-2" />
-                        Code
+                        {t("projects.code")}
                       </Button>
                     )}
                   </div>
@@ -299,7 +300,7 @@ const PortfolioSection = () => {
               variant="outline"
               className="border-neutral-300 hover:bg-neutral-50 transform hover:scale-105 transition-all duration-300"
             >
-              View All Projects
+              {t("portfolio.viewAll")}
             </Button>
           </Link>
         </div>

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Card } from "@/components/ui/card";
 import { Search, Code, TestTube, Rocket } from "lucide-react";
 import gsap from "gsap";
@@ -6,61 +7,58 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const processSteps = [
-  {
-    icon: Search,
-    title: "Discovery & Planning",
-    description:
-      "Understanding requirements, analyzing business goals, and defining technical architecture for optimal solutions.",
-    details: [
-      "Requirements analysis",
-      "Technical planning",
-      "Architecture design",
-      "Timeline estimation",
-    ],
-  },
-  {
-    icon: Code,
-    title: "Development",
-    description:
-      "Clean, efficient code development using modern technologies and best practices for maintainable solutions.",
-    details: [
-      "Clean code principles",
-      "Modern frameworks",
-      "Responsive design",
-      "Performance optimization",
-    ],
-  },
-  {
-    icon: TestTube,
-    title: "Testing & Quality",
-    description:
-      "Comprehensive testing ensuring performance, reliability, and exceptional user experience across all devices.",
-    details: [
-      "Unit testing",
-      "Integration testing",
-      "Performance testing",
-      "Cross-browser compatibility",
-    ],
-  },
-  {
-    icon: Rocket,
-    title: "Deployment & Maintenance",
-    description:
-      "Scalable deployment solutions with ongoing support and maintenance for long-term success.",
-    details: [
-      "CI/CD pipelines",
-      "Cloud deployment",
-      "Monitoring setup",
-      "Ongoing support",
-    ],
-  },
-];
-
 const ProcessSection = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const lineRef = useRef<HTMLDivElement>(null);
+
+  const processSteps = [
+    {
+      icon: Search,
+      titleKey: "process.discovery.title",
+      descriptionKey: "process.discovery.description",
+      details: [
+        "Requirements analysis",
+        "Technical planning",
+        "Architecture design",
+        "Timeline estimation",
+      ],
+    },
+    {
+      icon: Code,
+      titleKey: "process.development.title",
+      descriptionKey: "process.development.description",
+      details: [
+        "Clean code principles",
+        "Modern frameworks",
+        "Responsive design",
+        "Performance optimization",
+      ],
+    },
+    {
+      icon: TestTube,
+      titleKey: "process.testing.title",
+      descriptionKey: "process.testing.description",
+      details: [
+        "Unit testing",
+        "Integration testing",
+        "Performance testing",
+        "Cross-browser compatibility",
+      ],
+    },
+    {
+      icon: Rocket,
+      titleKey: "process.deployment.title",
+      descriptionKey: "process.deployment.description",
+      details: [
+        "CI/CD pipelines",
+        "Cloud deployment",
+        "Monitoring setup",
+        "Ongoing support",
+      ],
+    },
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -115,11 +113,10 @@ const ProcessSection = () => {
       <div className="container-width">
         <div className="text-center mb-16">
           <h2 className="text-section gradient-text mb-4">
-            My Development Process
+            {t("process.title")}
           </h2>
           <p className="text-body-large text-neutral-600 max-w-2xl mx-auto">
-            A systematic approach to delivering exceptional results from concept
-            to deployment
+            {t("process.subtitle")}
           </p>
         </div>
 
@@ -135,7 +132,7 @@ const ProcessSection = () => {
               const Icon = step.icon;
               return (
                 <Card
-                  key={step.title}
+                  key={step.titleKey}
                   ref={(el) => {
                     if (el) cardsRef.current[index] = el;
                   }}
@@ -153,11 +150,11 @@ const ProcessSection = () => {
 
                   {/* Content */}
                   <h3 className="text-xl font-semibold text-neutral-900 mb-4">
-                    {step.title}
+                    {t(step.titleKey)}
                   </h3>
 
                   <p className="text-body text-neutral-600 mb-6">
-                    {step.description}
+                    {t(step.descriptionKey)}
                   </p>
 
                   {/* Details */}

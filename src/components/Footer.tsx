@@ -1,6 +1,8 @@
+import { useTranslation } from "react-i18next";
 import { Mail, Linkedin, Github, Heart } from "lucide-react";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -12,10 +14,7 @@ const Footer = () => {
               <div className="font-mono font-semibold text-xl mb-4">
                 Paulo Alves
               </div>
-              <p className="text-neutral-400 mb-6">
-                Full Stack Developer specializing in React, Next.js, and
-                Node.js. Building scalable solutions for clients worldwide.
-              </p>
+              <p className="text-neutral-400 mb-6">{t("footer.tagline")}</p>
               <div className="flex space-x-4">
                 <a
                   href="mailto:pauloalvescode@gmail.com"
@@ -42,44 +41,44 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div>
-              <h3 className="font-semibold mb-4">Quick Links</h3>
+              <h3 className="font-semibold mb-4">{t("footer.quickLinks")}</h3>
               <div className="space-y-3">
                 <a
                   href="#about"
                   className="block text-neutral-400 hover:text-white transition-colors"
                 >
-                  About
+                  {t("nav.about")}
                 </a>
                 <a
                   href="#experience"
                   className="block text-neutral-400 hover:text-white transition-colors"
                 >
-                  Experience
+                  {t("nav.experience")}
                 </a>
                 <a
                   href="#portfolio"
                   className="block text-neutral-400 hover:text-white transition-colors"
                 >
-                  Portfolio
+                  {t("nav.work")}
                 </a>
                 <a
                   href="#contact"
                   className="block text-neutral-400 hover:text-white transition-colors"
                 >
-                  Contact
+                  {t("nav.contact")}
                 </a>
               </div>
             </div>
 
             {/* Services */}
             <div>
-              <h3 className="font-semibold mb-4">Services</h3>
+              <h3 className="font-semibold mb-4">{t("footer.services")}</h3>
               <div className="space-y-3">
-                <div className="text-neutral-400">Frontend Development</div>
-                <div className="text-neutral-400">Backend Development</div>
-                <div className="text-neutral-400">Full-Stack Applications</div>
-                <div className="text-neutral-400">API Development</div>
-                <div className="text-neutral-400">Technical Consulting</div>
+                <div className="text-neutral-400">{t("footer.service1")}</div>
+                <div className="text-neutral-400">{t("footer.service2")}</div>
+                <div className="text-neutral-400">{t("footer.service3")}</div>
+                <div className="text-neutral-400">{t("footer.service4")}</div>
+                <div className="text-neutral-400">{t("footer.service5")}</div>
               </div>
             </div>
           </div>
@@ -89,11 +88,12 @@ const Footer = () => {
         <div className="border-t border-neutral-800 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-neutral-400 text-sm mb-4 md:mb-0">
-              © {currentYear} Paulo Alves. All rights reserved.
+              © {currentYear} Paulo Alves. {t("footer.rights")}
             </div>
             <div className="flex items-center text-neutral-400 text-sm">
-              Made with <Heart className="w-4 h-4 text-red-500 mx-1" /> in
-              Brazil
+              {t("footer.madeWith")}{" "}
+              <Heart className="w-4 h-4 text-red-500 mx-1" />{" "}
+              {t("footer.inBrazil")}
             </div>
           </div>
         </div>

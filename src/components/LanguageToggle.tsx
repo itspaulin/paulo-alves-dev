@@ -1,24 +1,22 @@
-import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
-import { Globe } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const LanguageToggle = () => {
   const { i18n } = useTranslation();
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'pt' : 'en';
+    const newLang = i18n.language === "en" ? "pt" : "en";
     i18n.changeLanguage(newLang);
   };
 
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       size="sm"
       onClick={toggleLanguage}
-      className="text-neutral-600 hover:text-neutral-900 transition-colors"
+      className="ml-4"
     >
-      <Globe className="w-4 h-4 mr-1" />
-      {i18n.language === 'en' ? 'PT' : 'EN'}
+      {i18n.language === "en" ? "🇧🇷 PT" : "🇺🇸 EN"}
     </Button>
   );
 };
